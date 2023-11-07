@@ -1,0 +1,3 @@
+*
+!/build_assets/Dockerfile.grpc
+!/build_assets/requirements.grpc.txt

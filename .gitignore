@@ -5,3 +5,12 @@ ansible_hosts.txt
 
 #ignore variables
 **/variables.tf
+
+#ignore script
+**/image_build_and_push.sh
+
+#ignore model file
+**/models/mobilenet_v1
+
+#ignore dataset file
+**/dataset/imagenet
