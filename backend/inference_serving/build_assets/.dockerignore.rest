@@ -1,0 +1,3 @@
+*
+!/build_assets/Dockerfile.rest
+!/build_assets/requirements.rest.txt

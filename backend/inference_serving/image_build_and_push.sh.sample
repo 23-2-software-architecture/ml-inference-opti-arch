@@ -1,0 +1,29 @@
+#!/bin/bash
+#ex) xxxxxxxxxxx.dkr.ecr.ap-northeast-2.amazonaws.com
+#you need to create ECR repo and ecr login in instnace
+DEFAULT_DOCKER_REPOSITORY_NAME=""
+model_names=( "mobilenet_v1" )
+APIS=( "grpc" "rest" )
+
+#build base image
+for API in "${APIS[@]}"
+do
+    sudo DOCKER_BUILDKIT=1 docker build -t swarch-23-2-ml-$API\-docker-base -f ./build_assets/Dockerfile.$API . --build-arg DOCKERIGNORE_FILE=./build_assets/.dockerignore.$API
+done
+
+for model_name in "${model_names[@]}"
+do
+  for API in "${APIS[@]}"
+  do
+    sudo DOCKER_BUILDKIT=1 docker build -t $DOCKER_REGISTRY/swarch-23-2-$model_name-$API:latest -f ./build_assets/$model_name/Dockerfile.$API . --build-arg DOCKERIGNORE_FILE=./build_assets/$model_name/.dockerignore.$API
+    sudo docker builder prune -f
+  done
+done
+
+for model_name in "${model_names[@]}"
+do
+  for API in "${APIS[@]}"
+  do
+    sudo docker push $DOCKER_REGISTRY/swarch-23-2-$model_name-$API:latest
+  done
+done

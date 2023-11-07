@@ -1,0 +1,12 @@
+FROM swarch-23-2-ml-grpc-docker-base
+
+WORKDIR /app
+
+COPY ./models/mobilenet_v1 /app/mobilenet_v1
+
+COPY ./build_assets/mobilenet_v1/grpc_main.py /app
+
+EXPOSE 8500
+
+CMD ["python", "grpc_main.py"]
+
