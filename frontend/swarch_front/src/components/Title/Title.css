@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+
+.Title {
+    color: #000;
+    text-align: center;
+    font-family: Do Hyeon;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

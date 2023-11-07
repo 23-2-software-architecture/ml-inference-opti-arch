@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+
+
+.Main {
+    display: flex;
+    height: 100vh;
+    background: #E7EFFA;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

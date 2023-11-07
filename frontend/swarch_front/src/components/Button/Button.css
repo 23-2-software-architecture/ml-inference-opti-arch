@@ -1,0 +1,20 @@
+.Button {
+    width: 345px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 50px;
+    background: #A8C5ED;
+}
+
+.Text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #FAF2E7;
+    text-align: center;
+    font-family: Do Hyeon;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
