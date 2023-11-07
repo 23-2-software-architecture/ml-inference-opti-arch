@@ -1,0 +1,2 @@
+- IaC를 통해 AWS Cloud 환경에 Kubernetes를 손쉽게 배포할 수 있습니다.
+  - 단, 최소 WSL 또는 macOS에서 실행해야 합니다.

@@ -1,0 +1,7 @@
+*tfstate*
+*lock*
+.terraform
+ansible_hosts.txt
+
+#ignore variables
+**/variables.tf
