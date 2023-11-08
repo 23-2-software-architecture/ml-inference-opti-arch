@@ -1,12 +1,12 @@
 import React from 'react';
 import { Reset } from 'styled-reset'
-import Main from './components/Main/Main';
+import MainRoute from './route/MainRoute';
 
 function App() {
   return (
     <React.Fragment>
       <Reset />
-      <Main></Main>
+      <MainRoute/>
     </React.Fragment>
   );
 }
