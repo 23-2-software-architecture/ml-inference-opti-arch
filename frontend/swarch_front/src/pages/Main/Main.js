@@ -9,7 +9,7 @@ function Main(props) {
     <div className="Main">
             <Title/>
             <InputBox/>
-            <Button text="이미지 업로드"/>
+            <Button text="Image Upload"/>
     </div>
     )
 };

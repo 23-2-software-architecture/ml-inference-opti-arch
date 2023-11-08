@@ -6,8 +6,8 @@ export default function MainRoute() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="" element={<Main />} />
-        <Route path="Result" element={<Result />} />
+        <Route path="/" element={<Main />} />
+        <Route path="/result" element={<Result />} />
       </Routes>
     </BrowserRouter>
   );

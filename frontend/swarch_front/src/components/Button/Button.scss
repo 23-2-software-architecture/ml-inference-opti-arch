@@ -1,33 +1,12 @@
-// .Button {
-//     width: 345px;
-//     height: 50px;
-//     flex-shrink: 0;
-//     border-radius: 50px;
-//     background: #A8C5ED;
-// }
-
-// .Text {
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: center;
-//     color: #FAF2E7;
-//     text-align: center;
-//     font-family: Do Hyeon;
-//     font-size: 32px;
-//     font-style: normal;
-//     font-weight: 400;
-//     line-height: normal;
-// }
-
 @import url('https://fonts.googleapis.com/css?family=Rubik:700&display=swap');
 
 $bg: #fff;
 $text: #382b22;
-$light-pink: #fff0f0;
-$pink: #ffe9e9;
-$dark-pink: #f9c4d2;
-$pink-border: #b18597;
-$pink-shadow: #ffe3e2;
+$light-blue: #e7effa;
+$blue: #e7effa;
+$dark-blue: #a8c5ed;
+$purple-border: #afa8ed;
+$blue-shadow: #d1e8ff;
 
 * {
   box-sizing: border-box;
@@ -35,8 +14,14 @@ $pink-shadow: #ffe3e2;
     box-sizing: border-box;
   }
 }
+input {
+  display: none;
+}
 
-button {
+label, button {
+  font-family: 'Rubik', sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
   position: relative;
   display: inline-block;
   cursor: pointer;
@@ -44,46 +29,44 @@ button {
   border: 0;
   vertical-align: middle;
   text-decoration: none;
-  font-size: inherit;
-  font-family: inherit;
+  width: 500px;
+  text-align: center;
   &.text {
     font-weight: 600;
     color: $text;
     text-transform: uppercase;
     padding: 1.25em 2em;
-    background: $light-pink;
-    border: 2px solid $pink-border;
+    background: $light-blue;
+    border: 2px solid $purple-border;
     border-radius: 0.75em;
     transform-style: preserve-3d;
     transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1);
     &::before {
       position: absolute;
       content: '';
-      width: 100%;
-      height: 100%;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: $dark-pink;
+      background: $dark-blue;
       border-radius: inherit;
-      box-shadow: 0 0 0 2px $pink-border, 0 0.625em 0 0 $pink-shadow;
+      box-shadow: 0 0 0 2px $purple-border, 0 0.625em 0 0 $blue-shadow;
       transform: translate3d(0, 0.75em, -1em);
       transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
     }
     &:hover {
-      background: $pink;
+      background: $blue;
       transform: translate(0, 0.25em);
       &::before {
-        box-shadow: 0 0 0 2px $pink-border, 0 0.5em 0 0 $pink-shadow;
+        box-shadow: 0 0 0 2px $purple-border, 0 0.5em 0 0 $blue-shadow;
         transform: translate3d(0, 0.5em, -1em);
       }
     }
     &:active {
-      background: $pink;
+      background: $blue;
       transform: translate(0em, 0.75em);
       &::before {
-        box-shadow: 0 0 0 2px $pink-border, 0 0 $pink-shadow;
+        box-shadow: 0 0 0 2px $purple-border, 0 0 $blue-shadow;
         transform: translate3d(0, 0, -1em);
       }
     }
