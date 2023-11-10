@@ -47,11 +47,11 @@ def send_to_postprocess(model_name, data):
 async def main_page():
     return "Welcome to broker!"
 
-@app.get('/predict/')
+@app.get('/predict')
 async def predict_get():
     return "Please use POST method"
 
-@app.post('/predict/')
+@app.post('/predict')
 async def predict_post(model_name: str = Query(None), file: Optional[UploadFile] = File(None)):
     if model_name == "mobilenet_v1":
         image_file = await file.read()
