@@ -2,40 +2,40 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: inference
+  name: postprocess
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: inference
-  name: inference-deployment
+  namespace: postprocess
+  name: mobilenet-v1-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: inference
+      app: mobilenet-v1
   template:
     metadata:
       labels:
-        app: inference
+        app: mobilenet-v1
     spec:
       containers:
-        - name: inference
-          image: public.ecr.aws/f4b9d0l0/swarch-23-2-inference-mobilenet_v1:latest
+        - name: mobilenet-v1
+          image: public.ecr.aws/f4b9d0l0/swarch-23-2-postprocess-mobilenet_v1:latest
           ports:
             - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: inference
-  name: inference-service
+  namespace: postprocess
+  name: mobilenet-v1
 spec:
   type: ClusterIP
   selector:
-    app: inference
+    app: mobilenet-v1
   ports:
     - name: http
       protocol: TCP
-      port: 8082
+      port: 8083
       targetPort: 8080

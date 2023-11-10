@@ -8,19 +8,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: preprocess
-  name: preprocess-deployment
+  name: mobilenet-v1-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: preprocess
+      app: mobilenet-v1
   template:
     metadata:
       labels:
-        app: preprocess
+        app: mobilenet-v1
     spec:
       containers:
-        - name: preprocess
+        - name: mobilenet-v1
           image: public.ecr.aws/f4b9d0l0/swarch-23-2-preprocess-mobilenet_v1:latest
           ports:
             - containerPort: 8080
@@ -29,11 +29,11 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: preprocess
-  name: preprocess-service
+  name: mobilenet-v1
 spec:
   type: ClusterIP
   selector:
-    app: preprocess
+    app: mobilenet-v1
   ports:
     - name: http
       protocol: TCP
