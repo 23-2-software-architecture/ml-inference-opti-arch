@@ -2,6 +2,7 @@ from fastapi import FastAPI, UploadFile, File, Query
 from typing import Optional
 import time
 import requests
+import json
 
 app = FastAPI()
 
@@ -38,7 +39,7 @@ def send_to_postprocess(model_name, data):
     headers = {"content-type": "application/json"}
     postprocess_start_time = time.time()
     if model_name == "mobilenet_v1":
-        response = requests.post(url=f"http://{model_name.replace('_','-')}.{POSTPROCESS_MODULE_ADDRESS}", data=data, headers=headers)
+        response = requests.post(url=f"http://{model_name.replace('_','-')}.{POSTPROCESS_MODULE_ADDRESS}", data=json.dumps(data), headers=headers)
     postprocess_time = time.time() - postprocess_start_time
 
     return response.json(), postprocess_time

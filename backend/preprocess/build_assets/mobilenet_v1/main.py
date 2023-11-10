@@ -3,6 +3,7 @@ from fastapi import FastAPI, UploadFile, File
 from typing import Optional
 from PIL import Image
 import json
+from io import BytesIO
 
 app = FastAPI()
 
@@ -13,7 +14,7 @@ async def preprocess_get():
 @app.post('/')
 async def preprocess(file: Optional[UploadFile] = File(None)):
     image_file = await file.read()
-    img = Image.open(image_file)
+    img = Image.open(BytesIO(image_file))
     img = img.resize((224, 224))
     img_array = np.array(img)
     img_array = img_array.astype('float32') / 255.0
