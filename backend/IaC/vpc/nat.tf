@@ -43,7 +43,7 @@ resource "aws_instance" "NAT-Instance" {
   # count = "${length(var.region_azs)}"
   count                  = 1
   ami                    = var.ubuntu_ami.id
-  instance_type          = "t4g.micro"
+  instance_type          = "t3.small"
   availability_zone      = var.region_azs[count.index]
   iam_instance_profile   = var.ec2_instance_profile
   key_name               = var.key_name
