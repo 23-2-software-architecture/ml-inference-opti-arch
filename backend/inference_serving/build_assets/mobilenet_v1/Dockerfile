@@ -1,4 +1,4 @@
-FROM swarch-23-2-ml-rest-docker-base
+FROM swarch-23-2-ml-docker-base
 
 WORKDIR /app
 
