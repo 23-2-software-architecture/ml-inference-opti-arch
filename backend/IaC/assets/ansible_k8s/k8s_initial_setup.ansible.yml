@@ -70,6 +70,7 @@
       become: true
       ansible.builtin.apt:
         update_cache: true
+        allow_unauthenticated: true
     - name: Install kubelet, kubeadm, and kubectl
       become: true
       ansible.builtin.apt:
@@ -78,6 +79,7 @@
           - kubeadm
           - kubectl
         state: present
+        allow_unauthenticated: true
     - name: Configure crictl
       become: true
       ansible.builtin.copy:
