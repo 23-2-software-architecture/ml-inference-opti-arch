@@ -13,4 +13,4 @@ ansible_hosts.txt
 **/models/mobilenet_v1
 
 #ignore dataset file
-**/dataset/imagenet
+**/test_dataset/imagenet
