@@ -2,7 +2,7 @@
 *lock*
 .terraform
 ansible_hosts.txt
-
+.DS_store
 #ignore variables
 **/variables.tf
 
