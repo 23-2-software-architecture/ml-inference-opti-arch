@@ -1,6 +1,3 @@
-### need to change import libararies
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import numpy as np
 from fastapi import FastAPI
 import pickle
@@ -9,7 +6,7 @@ with open('imagenet_labels.pkl', 'rb') as f:
     labels = pickle.load(f)
 
 @app.post('/')
-async def post_process(json_body: dict):
+async def postprocess(json_body: dict):
     predictions = np.array(json_body['body'])
     predicted_class_index = np.argmax(predictions)
 
