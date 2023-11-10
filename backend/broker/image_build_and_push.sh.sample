@@ -1,8 +1,8 @@
 #!/bin/bash
 #ex) xxxxxxxxxxx.dkr.ecr.ap-northeast-2.amazonaws.com
 #you need to create ECR repo and ecr login in instnace
-DEFAULT_DOCKER_REPOSITORY_NAME=""
+DOCKER_REGISTRY=""
 
-sudo DOCKER_BUILDKIT=1 docker build -t $DOCKER_REGISTRY/swarch-23-2-broker:latest -f ./build_assets/Dockerfile . --build-arg DOCKERIGNORE_FILE=./build_assets/.dockerignore
+sudo docker build -t $DOCKER_REGISTRY/swarch-23-2-broker:latest -f ./build_assets/Dockerfile . --build-arg DOCKERIGNORE_FILE=./build_assets/.dockerignore
 sudo docker builder prune -f
 sudo docker push $DOCKER_REGISTRY/swarch-23-2-broker:latest
