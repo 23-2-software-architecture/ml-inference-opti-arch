@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: broker
-          image: kmubigdata/tfserving-armv8:latest
+          image: public.ecr.aws/f4b9d0l0/swarch-23-2-broker:latest
           ports:
             - containerPort: 8080
 ---

@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: postprocess
-          image: kmubigdata/tfserving-armv8:latest
+          image: public.ecr.aws/f4b9d0l0/swarch-23-2-postprocess-mobilenet_v1:latest
           ports:
             - containerPort: 8080
 ---
