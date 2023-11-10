@@ -9,11 +9,11 @@ sudo DOCKER_BUILDKIT=1 docker build -t swarch-23-2-ml-docker-base -f ./build_ass
 
 for model_name in "${model_names[@]}"
 do
-  sudo DOCKER_BUILDKIT=1 docker build -t $DOCKER_REGISTRY/swarch-23-2-inference-$model_name:latest -f ./build_assets/$model_name/Dockerfile . --build-arg DOCKERIGNORE_FILE=./build_assets/$model_name/.dockerignore
+  sudo DOCKER_BUILDKIT=1 docker build -t $DOCKER_REGISTRY/swarch-23-2-preprocess-$model_name:latest -f ./build_assets/$model_name/Dockerfile . --build-arg DOCKERIGNORE_FILE=./build_assets/$model_name/.dockerignore
   sudo docker builder prune -f
 done
 
 for model_name in "${model_names[@]}"
 do
-  sudo docker push $DOCKER_REGISTRY/swarch-23-2-inference-$model_name:latest
+  sudo docker push $DOCKER_REGISTRY/swarch-23-2-preprocess-$model_name:latest
 done
