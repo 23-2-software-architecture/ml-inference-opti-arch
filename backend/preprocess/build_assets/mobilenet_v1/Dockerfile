@@ -2,8 +2,6 @@ FROM swarch-23-2-ml-preprocess-docker-base
 
 WORKDIR /app
 
-COPY ./models/mobilenet_v1 /app/mobilenet_v1
-
 COPY ./build_assets/mobilenet_v1/requirements.txt /app
 
 RUN pip install --no-cache-dir -r requirements.txt
