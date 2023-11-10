@@ -45,12 +45,17 @@ kind: Ingress
 metadata:
   namespace: broker
   name: broker-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    nginx.ingress.kubernetes.io/send-timeout: "600"
 spec:
   ingressClassName: nginx
   rules:
     - http:
         paths:
-          - path: /(/|$)(.*)
+          - path: /
             pathType: ImplementationSpecific
             backend:
               service:

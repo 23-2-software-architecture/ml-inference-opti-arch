@@ -1,4 +1,5 @@
-tensorflow-cpu
 fastapi
 uvicorn[standard]
 requests
+numpy
+python-multipart
