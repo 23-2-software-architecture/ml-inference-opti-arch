@@ -64,7 +64,7 @@
     - name: Add Kubernetes apt repository
       become: true
       ansible.builtin.apt_repository:
-        repo: deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main
+        repo: deb [ allow-insecure=yes ] https://apt.kubernetes.io/ kubernetes-xenial main
         state: present
     - name: Update apt cache
       become: true
