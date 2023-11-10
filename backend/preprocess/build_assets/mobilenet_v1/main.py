@@ -11,7 +11,7 @@ async def preprocess_get():
     return "Welcome to preprocess module"
 
 @app.post('/preprocess')
-async def predict(file: Optional[UploadFile] = File(None)):
+async def pre_process(file: Optional[UploadFile] = File(None)):
     image_file = await file.read()
     img = Image.open(image_file)
     img = img.resize((224, 224))

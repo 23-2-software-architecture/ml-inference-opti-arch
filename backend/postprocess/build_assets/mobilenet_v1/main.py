@@ -9,7 +9,7 @@ with open('imagenet_labels.pkl', 'rb') as f:
     labels = pickle.load(f)
 
 @app.post('/')
-async def predict(json_body: dict):
+async def post_process(json_body: dict):
     predictions = np.array(json_body['body'])
     predicted_class_index = np.argmax(predictions)
 
