@@ -7,18 +7,18 @@ app = FastAPI()
 
 @app.post('/')
 async def predict(json_body: dict):
-    ### add code here
     with open('imagenet_labels.txt', 'r') as f:
         labels = f.read().splitlines()
 
     predictions = np.array(json_body['body'])
     predicted_class_index = np.argmax(predictions)
 
-    predicted_label = labels[predicted_class_index]
-    predicted_score = predictions[0][predicted_class_index]
+    predicted_label = labels[predicted_class_index + 1]
+    predicted_probability = predictions[0][predicted_class_index]
 
     response = {
-        'result': predicted_label
+        'result_class': predicted_label,
+        'result_probability': predicted_probability
     }
 
     return response
