@@ -7,6 +7,7 @@ function InputBox(props) {
   const imgFile = useRecoilValue(imageState);
   const result = useRecoilValue(resultState);
 
+  console.log(result);
   if(!result){
     return (
         <div className="InputBox">
@@ -20,7 +21,9 @@ function InputBox(props) {
   }
   return (
         <div className="InputBox">
-          {result}
+          {result.result_class}
+          <br></br>
+          {result.result_probability}
         </div>
     )
 };
