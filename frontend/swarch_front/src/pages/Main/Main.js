@@ -5,7 +5,7 @@ import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
 
 function Main(props) {
-  return (
+    return (
     <div className="Main">
             <Title/>
             <InputBox/>

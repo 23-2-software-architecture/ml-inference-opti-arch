@@ -1,16 +1,16 @@
 import React from 'react';
-import { Reset } from 'styled-reset'
-import MainRoute from './route/MainRoute';
+import { Reset } from 'styled-reset';
 import {
   RecoilRoot,
 } from 'recoil';
+import { Main } from './pages';
 
 function App() {
   return (
     <React.Fragment>
       <RecoilRoot>
         <Reset />
-        <MainRoute/>
+        <Main />
       </RecoilRoot>
     </React.Fragment>
   );

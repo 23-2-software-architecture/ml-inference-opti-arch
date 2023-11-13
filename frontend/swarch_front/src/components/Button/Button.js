@@ -1,33 +1,48 @@
-import React, {useRef} from "react";
-import { redirect } from "react-router-dom";
-import "./Button.scss";
+import React, {useRef, useState} from "react";
 import { useRecoilState } from "recoil";
-import { imageState } from "../../store";
+import axios from "axios";
+import { imageState, resultState } from "../../store";
+import "./Button.scss";
 
 function Button(props) {
-  const [img ,imgSave] = useRecoilState(imageState);
+  const [img ,setImg] = useRecoilState(imageState);
+  const [result, setResult] = useRecoilState(resultState);
+  const [file, setFile] = useState(null);
   const imgRef = useRef();
+  const formData = new FormData();
 
-  const saveImgFile = () => {
-    const file = imgRef.current.files[0];
+  const saveImgFile = (e) => {
+    setFile(e.target.files[0])
+
+    const image = imgRef.current.files[0];
     const reader = new FileReader();
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(image);
     reader.onloadend = () => {
-      imgSave({img:reader.result, isEmpty:false});
+      setImg({img:reader.result, isEmpty:false});
     };
   };
 
-  const onImgUpload = async (event) => {
-    // setLogoLoading(true)
-    const formData = new FormData();
-    formData.append("img", img.img);
-    // const response = await api.post('/api_address', formData)
-    // setLogoLoading(false)
+  // const test_url = "http://a6f463462c9034c92840c4e1cdadbd74-6b9510d16672c89b.elb.ap-northeast-2.amazonaws.com/predict?model_name=mobilenet_v1"
+  const url = "http://swarch.mhsong.cc/predict?model_name=mobilenet_v1"
+  const onImgUpload = async() => {
+    formData.append("file", file)
+    await axios.post(url, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", 
+        "Accept":"multipart/form-data", 
+        }
+    }).then((res) => {
+      console.log(res.data)
+      setResult(res.data.result);
+    }).catch((e) => {
+      setResult("Error");
+    });
   };
 
-  const handleClick = () => {
+  const onHomeClick = () => {
     window.location.replace("/")
   }
+
   if(img.isEmpty) {
     return (
         <form>
@@ -41,11 +56,12 @@ function Button(props) {
           />
         </form>
         )
-      }
+  } else if (!img.isEmpty && !result) {
     return (
-      // 이미지 백엔드로 전송
-      // 결과 페이지로 이동
-        <button className="text" onClick={handleClick}>Inference</button>
-      )
+    <button type="submit" className="text" onClick={onImgUpload}>Inference</button>
+    )
+  } else if (!img.isEmpty && result) {
+    return (<button className="text" onClick={onHomeClick}>Home</button>)
+  }
 };
 export default Button;
