@@ -17,7 +17,7 @@ function Main(props) {
 					MobileNetv1 (Image)
 				</RadioButton>
 				<RadioButton value="yolo_v5">YOLOv5 (Image)</RadioButton>
-				<RadioButton value="bert">BERT (Text)</RadioButton>
+				<RadioButton value="bert_imdb">BERT (Text)</RadioButton>
 			</RadioGroup>
 			<InputBox />
 			<Button text="File Upload" model={value} />
