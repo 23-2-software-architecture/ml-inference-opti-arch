@@ -22,7 +22,6 @@ function Button(props) {
 	};
 
 	const url = "http://swarch.mhsong.cc/predict?model_name=" + props.model;
-	console.log(url);
 	const onImgUpload = async () => {
 		formData.append("file", file);
 		await axios
@@ -33,7 +32,6 @@ function Button(props) {
 				},
 			})
 			.then((res) => {
-				console.log(res.data);
 				setResult(res.data.result);
 			})
 			.catch((e) => {
