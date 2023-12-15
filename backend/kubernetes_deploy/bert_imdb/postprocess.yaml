@@ -1,0 +1,41 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: postprocess
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: postprocess
+  name: bert-imdb-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bert-imdb
+  template:
+    metadata:
+      labels:
+        app: bert-imdb
+    spec:
+      containers:
+        - name: bert-imdb
+          image: public.ecr.aws/f4b9d0l0/swarch-23-2-postprocess-bert_imdb:latest
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: postprocess
+  name: bert-imdb
+spec:
+  type: ClusterIP
+  selector:
+    app: bert-imdb
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8083
+      targetPort: 8080

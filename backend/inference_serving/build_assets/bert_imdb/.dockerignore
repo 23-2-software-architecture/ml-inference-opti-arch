@@ -1,0 +1,3 @@
+*
+!/models/bert_imdb
+!/build_assets/bert_imdbs/main.py

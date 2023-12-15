@@ -22,6 +22,10 @@ def send_to_preprocess(model_name, data):
     preprocess_start_time = time.time()
     if model_name == "mobilenet_v1":
         response = requests.post(url=f"http://{model_name.replace('_','-')}.{PREPROCESS_MODULE_ADDRESS}", files={'file': data})
+    if model_name == "yolo_v5":
+        response = requests.post(url=f"http://{model_name.replace('_','-')}.{PREPROCESS_MODULE_ADDRESS}", files={'file': data})
+    if model_name == "bert_imdb":
+        response = requests.post(url=f"http://{model_name.replace('_','-')}.{PREPROCESS_MODULE_ADDRESS}/text={data}")
     preprocess_time = time.time() - preprocess_start_time
 
     return response.json(), preprocess_time
@@ -31,6 +35,10 @@ def send_to_inference(model_name, data):
     inference_start_time = time.time()
     if model_name == "mobilenet_v1":
         response = requests.post(url=f"http://{model_name.replace('_','-')}.{INFERENCE_MODULE_ADDRESS}", data=data, headers=headers)
+    if model_name == "yolo_v5":
+        response = requests.post(url=f"http://{model_name.replace('_','-')}.{INFERENCE_MODULE_ADDRESS}", data=data, headers=headers)
+    if model_name == "bert_imdb":
+        response = requests.post(url=f"http://{model_name.replace('_','-')}.{INFERENCE_MODULE_ADDRESS}", data=data, headers=headers)
     inference_time = time.time() - inference_start_time
 
     return response.json(), inference_time
@@ -39,6 +47,10 @@ def send_to_postprocess(model_name, data):
     headers = {"content-type": "application/json"}
     postprocess_start_time = time.time()
     if model_name == "mobilenet_v1":
+        response = requests.post(url=f"http://{model_name.replace('_','-')}.{POSTPROCESS_MODULE_ADDRESS}", data=json.dumps(data), headers=headers)
+    if model_name == "yolo_v5":
+        response = requests.post(url=f"http://{model_name.replace('_','-')}.{POSTPROCESS_MODULE_ADDRESS}", data=json.dumps(data), headers=headers)
+    if model_name == "bert_imdb":
         response = requests.post(url=f"http://{model_name.replace('_','-')}.{POSTPROCESS_MODULE_ADDRESS}", data=json.dumps(data), headers=headers)
     postprocess_time = time.time() - postprocess_start_time
 
@@ -53,10 +65,19 @@ async def predict_get():
     return "Please use POST method"
 
 @app.post('/predict')
-async def predict_post(model_name: str = Query(None), file: Optional[UploadFile] = File(None)):
+async def predict_post(model_name: str = Query(None), text: str = Query(None), file: Optional[UploadFile] = File(None)):
     if model_name == "mobilenet_v1":
         image_file = await file.read()
         preprocess_result, preprocess_time = send_to_preprocess(model_name, image_file)
+        inference_result, inference_time = send_to_inference(model_name, preprocess_result)
+        postprocess_result, postprocess_time = send_to_postprocess(model_name, inference_result)
+    elif model_name == "yolo_v5":
+        image_file = await file.read()
+        preprocess_result, preprocess_time = send_to_preprocess(model_name, image_file)
+        inference_result, inference_time = send_to_inference(model_name, preprocess_result)
+        postprocess_result, postprocess_time = send_to_postprocess(model_name, inference_result)
+    elif model_name == "bert_imdb":
+        preprocess_result, preprocess_time = send_to_preprocess(model_name, text)
         inference_result, inference_time = send_to_inference(model_name, preprocess_result)
         postprocess_result, postprocess_time = send_to_postprocess(model_name, inference_result)
     else:

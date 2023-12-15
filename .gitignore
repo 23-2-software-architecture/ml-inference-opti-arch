@@ -11,6 +11,8 @@ ansible_hosts.txt
 
 #ignore model file
 **/models/mobilenet_v1
+**/models/yolo_v5
+**/models/bert_imdb
 
 #ignore dataset file
 **/test_dataset/imagenet
