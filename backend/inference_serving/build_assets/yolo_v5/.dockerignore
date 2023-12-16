@@ -1,0 +1,3 @@
+*
+!/models/yolo_v5
+!/build_assets/yolo_v5/main.py
