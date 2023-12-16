@@ -1,20 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
 
 .InputBox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 550px;
-    height: 550px;
-    border-radius: 55px;
-    background: #D2E1F6;
-    font-family: 'Do Hyeon', sans-serif;
-    font-size: x-large;
-    color : grey;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 550px;
+	height: 550px;
+	border-radius: 55px;
+	background: #d2e1f6;
+	font-family: "Do Hyeon", sans-serif;
+	font-size: x-large;
+	color: grey;
+	margin: 5rem;
 }
 
 img {
-    width : 90%;
-    height: 90%;
-    border-radius: 55px;
+	width: 90%;
+	height: 90%;
+	border-radius: 55px;
 }
