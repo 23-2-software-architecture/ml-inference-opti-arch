@@ -14,15 +14,15 @@ neutral_str = "이 영화 리뷰는 중립적인 것 같습니다."
 @app.post('/')
 async def postprocess(json_body: dict):
     predictions = np.array(json_body['body'])
-    predicted_class_index = np.argmax(predictions)
-    probability = predictions[predicted_class_index]
+    predicted_class_index = np.argmax(predictions[0])
+    probability = predictions[0][predicted_class_index]
     
     result_str = None
     if probability < 0.7:
         result_str = neutral_str
     elif predicted_class_index == POSITIVE:
         result_str = positive_str
-    else:
+    else: 
         result_str = negative_str
 
     response = {
