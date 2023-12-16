@@ -12,6 +12,7 @@ async def predict(json_body: dict):
     nparray = np.array(x)
     result = model.predict(nparray)
     response = {
+        'image' : x,
         'body': result.tolist(),
     }
     return response
