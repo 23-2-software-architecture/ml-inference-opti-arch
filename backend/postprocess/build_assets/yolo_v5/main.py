@@ -39,7 +39,6 @@ async def postprocess(json_body: dict):
     predictions = np.array(json_body['body'])
     img = np.array(json_body['image'])
     output_tensor = predictions[0]
-    
     boxes = output_tensor[0, :, :4]
     class_probabilities = output_tensor[0, :, 4:]
     
