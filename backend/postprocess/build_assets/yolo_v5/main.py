@@ -64,5 +64,9 @@ async def postprocess(json_body: dict):
     
     _, encoded_img = cv2.imencode('.jpg', image)
     byte_stream = io.BytesIO(encoded_img.tobytes())
+    
+    result = {
+        "result" : StreamingResponse(byte_stream, media_type="image/jpeg")
+    }
 
-    return StreamingResponse(byte_stream, media_type="image/jpeg")
+    return result
