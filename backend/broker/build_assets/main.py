@@ -17,6 +17,8 @@ POSTPROCESS_MODULE_ADDRESS = f"{POSTPROCESS_NAMESPACE}.svc.{CLUSTER_DOMAIN}:8083
 INFERENCE_NAMESPACE = "inference"
 INFERENCE_MODULE_ADDRESS = f"{INFERENCE_NAMESPACE}.svc.{CLUSTER_DOMAIN}:8082/"
 
+SUPPORT_MODELS = ["mobilenet_v1","yolo_v5","bert_imdb"]
+
 
 def send_to_preprocess(model_name, data):
     preprocess_start_time = time.time()
@@ -51,14 +53,9 @@ async def predict_get():
 
 @app.post('/predict')
 async def predict_post(model_name: str = Query(None), file: Optional[UploadFile] = File(None)):
-    if model_name == "mobilenet_v1" or model_name == "yolo_v5":
-        image_file = await file.read()
-        preprocess_result, preprocess_time = send_to_preprocess(model_name, image_file)
-        inference_result, inference_time = send_to_inference(model_name, preprocess_result)
-        postprocess_result, postprocess_time = send_to_postprocess(model_name, inference_result)
-    elif model_name == "bert_imdb":
-        text_file = await file.read()
-        preprocess_result, preprocess_time = send_to_preprocess(model_name, text_file)
+    if model_name in SUPPORT_MODELS:
+        data_file = await file.read()
+        preprocess_result, preprocess_time = send_to_preprocess(model_name, data_file)
         inference_result, inference_time = send_to_inference(model_name, preprocess_result)
         postprocess_result, postprocess_time = send_to_postprocess(model_name, inference_result)
     else:
