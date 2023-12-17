@@ -1,14 +1,14 @@
 import React, { useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import axios from "axios";
-import { imageState, resultState, textState } from "../../store";
+import { imageState, resultState } from "../../store";
 import "./Button.scss";
 
 function Button(props) {
 	const [img, setImg] = useRecoilState(imageState);
 	const [result, setResult] = useRecoilState(resultState);
 	const [file, setFile] = useState(null);
-	const [text, setText] = useRecoilState(textState);
+	// const [text, setText] = useRecoilState(textState);
 	const imgRef = useRef();
 	const formData = new FormData();
 	var string = "";
@@ -16,11 +16,14 @@ function Button(props) {
 		setFile(e.target.files[0]);
 		const image = imgRef.current.files[0];
 		const reader = new FileReader();
+
 		reader.readAsDataURL(image);
 		reader.onloadend = () => {
-			string = reader.result.split(",")[1];
-			string = decodeURIComponent(escape(atob(string)));
-			setText({ text: string, isEmpty: false });
+			if (image.type === "text/plain") {
+				string = reader.result.split(",")[1];
+				string = decodeURIComponent(escape(atob(string)));
+				alert(string);
+			}
 			setImg({ img: reader.result, isEmpty: false });
 		};
 	};

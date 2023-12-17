@@ -7,15 +7,13 @@ function InputBox({ state }) {
 	const imgFile = useRecoilValue(imageState);
 	const result = useRecoilValue(resultState);
 	const text = useRecoilValue(textState);
+
 	if (!result && text.isEmpty) {
 		return (
 			<div className="InputBox">
-				{imgFile.isEmpty ? <p>파일을 업로드 해주세요.</p> : <img src={imgFile.img} alt="img" />}
+				{imgFile.isEmpty ? <p>파일을 업로드 해주세요.</p> : <img src={imgFile.img} alt="text" />}
 			</div>
 		);
-	}
-	if (!result && !imgFile.isEmpty && text.text) {
-		return <div className="InputBox">{text.text}</div>;
 	}
 	if (state === "mobilenet_v1") {
 		var result_probability = result.result_probability * 100;
