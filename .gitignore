@@ -16,4 +16,5 @@ ansible_hosts.txt
 
 #ignore dataset file
 **/test_dataset/imagenet
+**/test_dataset/coco_2017
 **/test_dataset/imagenet_1000_raw

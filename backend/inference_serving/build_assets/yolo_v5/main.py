@@ -10,9 +10,9 @@ model = load_model('./yolo_v5')
 async def predict(json_body: dict):
     x = json_body['inputs']['x']
     nparray = np.array(x)
-    result = model.predict(nparray)
+    result = model(nparray)
     response = {
         'image' : x,
-        'body': result.tolist(),
+        'body': result,
     }
     return response

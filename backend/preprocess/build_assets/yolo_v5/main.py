@@ -14,7 +14,7 @@ async def preprocess_get():
 @app.post('/')
 async def preprocess(file: Optional[UploadFile] = File(None)):
     image_file = await file.read()
-    img = cv2.imread(BytesIO(image_file))
+    img = cv2.imdecode(np.frombuffer(image_file, np.uint8), cv2.IMREAD_COLOR)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     img = cv2.resize(img, (640, 640))
     img = img.astype('float32') / 255.0

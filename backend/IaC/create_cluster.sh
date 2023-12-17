@@ -4,10 +4,10 @@
 # The bastion flag is set to create an entrypoint for admins to SSH.
 export KOPS_STATE_STORE="s3://mhsong-kops-state"
 export CONTROL_PLANE_SIZE="t3.medium"
-export NODE_SIZE="t3.medium"
-export ZONES="ap-northeast-2a"
+export NODE_SIZE="t3.large"
+export ZONES="ap-northeast-2a,ap-northeast-2c,ap-northeast-2d"
 kops create cluster mhsongcluster.mhsong.cc \
---node-count 1 \
+--node-count 3 \
 --zones $ZONES \
 --node-size $NODE_SIZE \
 --control-plane-size $CONTROL_PLANE_SIZE \
