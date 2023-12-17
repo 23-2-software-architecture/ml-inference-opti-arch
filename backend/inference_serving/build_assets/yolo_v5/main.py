@@ -11,8 +11,10 @@ async def predict(json_body: dict):
     x = json_body['inputs']['x']
     nparray = np.array(x)
     result = model(nparray)
+    output_tensor = result[0]
+    result_list = (output_tensor.numpy()).tolist()
     response = {
         'image' : x,
-        'body': result,
+        'body': result_list,
     }
     return response
