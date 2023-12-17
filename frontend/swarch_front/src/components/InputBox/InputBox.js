@@ -3,7 +3,7 @@ import "./InputBox.css";
 import { useRecoilValue } from "recoil";
 import { imageState, resultState } from "../../store";
 
-function InputBox(props) {
+function InputBox({ state }) {
 	const imgFile = useRecoilValue(imageState);
 	const result = useRecoilValue(resultState);
 
@@ -14,12 +14,28 @@ function InputBox(props) {
 			</div>
 		);
 	}
-	return (
-		<div className="InputBox">
-			{result.result_class}
-			<br></br>
-			{result.result_probability}
-		</div>
-	);
+	if (state === "mobilenet_v1") {
+		return (
+			<div className="InputBox">
+				{result.result_class}
+				<br></br>
+				{result.result_probability}
+			</div>
+		);
+	} else if (state === "yolo_v5") {
+		return (
+			<div className="InputBox">
+				<img src={`data:image/png;base64,${result.result}`} alt="yolo" />
+				<br></br>
+			</div>
+		);
+	} else if (state === "bert_imdb") {
+		return (
+			<div className="InputBox">
+				{result.result}
+				<br></br>
+			</div>
+		);
+	}
 }
 export default InputBox;

@@ -24,6 +24,7 @@ function Button(props) {
 	const url = "http://swarch.mhsong.cc/predict?model_name=" + props.model;
 	const onImgUpload = async () => {
 		formData.append("file", file);
+		console.log(url);
 		await axios
 			.post(url, formData, {
 				headers: {
@@ -33,6 +34,7 @@ function Button(props) {
 			})
 			.then((res) => {
 				setResult(res.data.result);
+				console.log(res.data.result);
 			})
 			.catch((e) => {
 				setResult("Error");
@@ -52,7 +54,7 @@ function Button(props) {
 				<input
 					style={{ display: "None" }}
 					type="file"
-					accept="image/*"
+					accept="*"
 					id="inputImage"
 					onChange={saveImgFile}
 					ref={imgRef}
