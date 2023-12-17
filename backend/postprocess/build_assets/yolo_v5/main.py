@@ -42,7 +42,7 @@ async def postprocess(json_body: dict):
     boxes = output_tensor[0, :, :4]
     class_probabilities = output_tensor[0, :, 4:]
     
-    opencv_scores = [float(arr.numpy().max()) for arr in class_probabilities]
+    opencv_scores = [float(arr.max()) for arr in class_probabilities]
     opencv_boxes = []
     for box in boxes:
         x_center, y_center, width, height = box
@@ -54,8 +54,8 @@ async def postprocess(json_body: dict):
 
     indices = cv2.dnn.NMSBoxes(opencv_boxes, opencv_scores, score_threshold=score_threshold, nms_threshold=0.4)
 
-    selected_boxes = [boxes[0][i] for i in indices]
-    selected_probabilities = [class_probabilities[0][i] for i in indices]
+    selected_boxes = [boxes[i] for i in indices]
+    selected_probabilities = [class_probabilities[i] for i in indices]
     
     image = (img[0] * 255).astype(np.uint8)
 
