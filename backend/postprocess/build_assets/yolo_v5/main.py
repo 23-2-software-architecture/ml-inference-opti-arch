@@ -3,12 +3,13 @@ from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 import pickle
 import cv2
-import io
+import base64
 
 app = FastAPI()
 
 with open("yolo_label.pkl", "rb") as f:
     label_class = pickle.load(f)
+    label_class.insert(0, 'dummy')
         
 def convert_coordinates(box, img_width, img_height):
     x_center, y_center, width, height = box
@@ -36,13 +37,13 @@ def draw_bounding_boxes(image, boxes, class_probabilities, class_names):
 
 @app.post('/')
 async def postprocess(json_body: dict):
-    predictions = np.array(json_body['body'])
+    body = json_body['body']
     img = np.array(json_body['image'])
-    output_tensor = predictions[0]
+    output_tensor = np.array(body)
     boxes = output_tensor[0, :, :4]
     class_probabilities = output_tensor[0, :, 4:]
     
-    opencv_scores = [float(arr.numpy().max()) for arr in class_probabilities]
+    opencv_scores = [float(arr.max()) for arr in class_probabilities]
     opencv_boxes = []
     for box in boxes:
         x_center, y_center, width, height = box
@@ -54,18 +55,18 @@ async def postprocess(json_body: dict):
 
     indices = cv2.dnn.NMSBoxes(opencv_boxes, opencv_scores, score_threshold=score_threshold, nms_threshold=0.4)
 
-    selected_boxes = [boxes[0][i] for i in indices]
-    selected_probabilities = [class_probabilities[0][i] for i in indices]
+    selected_boxes = [boxes[i] for i in indices]
+    selected_probabilities = [class_probabilities[i] for i in indices]
     
     image = (img[0] * 255).astype(np.uint8)
 
     draw_bounding_boxes(image, selected_boxes, selected_probabilities, label_class)
     
     _, encoded_img = cv2.imencode('.jpg', image)
-    byte_stream = io.BytesIO(encoded_img.tobytes())
+    img_base64 = base64.b64encode(encoded_img.tobytes()).decode('utf-8')
     
     result = {
-        "result" : StreamingResponse(byte_stream, media_type="image/jpeg")
+        "result": img_base64
     }
 
     return result
