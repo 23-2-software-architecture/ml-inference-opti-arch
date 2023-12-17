@@ -8,15 +8,22 @@ function Button(props) {
 	const [img, setImg] = useRecoilState(imageState);
 	const [result, setResult] = useRecoilState(resultState);
 	const [file, setFile] = useState(null);
+	// const [text, setText] = useRecoilState(textState);
 	const imgRef = useRef();
 	const formData = new FormData();
+	var string = "";
 	const saveImgFile = (e) => {
 		setFile(e.target.files[0]);
-
 		const image = imgRef.current.files[0];
 		const reader = new FileReader();
+
 		reader.readAsDataURL(image);
 		reader.onloadend = () => {
+			if (image.type === "text/plain") {
+				string = reader.result.split(",")[1];
+				string = decodeURIComponent(escape(atob(string)));
+				alert(string);
+			}
 			setImg({ img: reader.result, isEmpty: false });
 		};
 	};
@@ -52,10 +59,11 @@ function Button(props) {
 				<input
 					style={{ display: "None" }}
 					type="file"
-					accept="image/*"
+					accept="*"
 					id="inputImage"
 					onChange={saveImgFile}
 					ref={imgRef}
+					value={string}
 				/>
 			</form>
 		);

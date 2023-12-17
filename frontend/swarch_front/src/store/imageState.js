@@ -1,11 +1,11 @@
-import { atom } from 'recoil';
+import { atom } from "recoil";
 
 const imageState = atom({
-  key: 'imageState',
-  default: {
-    img: '',
-    isEmpty: true
-  },
+	key: "imageState",
+	default: {
+		img: "",
+		isEmpty: true,
+	},
 });
 
 export default imageState;

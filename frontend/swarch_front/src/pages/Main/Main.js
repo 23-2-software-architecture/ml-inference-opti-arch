@@ -19,7 +19,7 @@ function Main(props) {
 				<RadioButton value="yolo_v5">YOLOv5 (Image)</RadioButton>
 				<RadioButton value="bert_imdb">BERT (Text)</RadioButton>
 			</RadioGroup>
-			<InputBox />
+			<InputBox state={value} />
 			<Button text="File Upload" model={value} />
 		</div>
 	);
