@@ -1,22 +1,26 @@
 import React, { useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import axios from "axios";
-import { imageState, resultState } from "../../store";
+import { imageState, resultState, textState } from "../../store";
 import "./Button.scss";
 
 function Button(props) {
 	const [img, setImg] = useRecoilState(imageState);
 	const [result, setResult] = useRecoilState(resultState);
 	const [file, setFile] = useState(null);
+	const [text, setText] = useRecoilState(textState);
 	const imgRef = useRef();
 	const formData = new FormData();
+	var string = "";
 	const saveImgFile = (e) => {
 		setFile(e.target.files[0]);
-
 		const image = imgRef.current.files[0];
 		const reader = new FileReader();
 		reader.readAsDataURL(image);
 		reader.onloadend = () => {
+			string = reader.result.split(",")[1];
+			string = decodeURIComponent(escape(atob(string)));
+			setText({ text: string, isEmpty: false });
 			setImg({ img: reader.result, isEmpty: false });
 		};
 	};
@@ -24,7 +28,6 @@ function Button(props) {
 	const url = "http://swarch.mhsong.cc/predict?model_name=" + props.model;
 	const onImgUpload = async () => {
 		formData.append("file", file);
-		console.log(url);
 		await axios
 			.post(url, formData, {
 				headers: {
@@ -34,7 +37,6 @@ function Button(props) {
 			})
 			.then((res) => {
 				setResult(res.data.result);
-				console.log(res.data.result);
 			})
 			.catch((e) => {
 				setResult("Error");
@@ -58,6 +60,7 @@ function Button(props) {
 					id="inputImage"
 					onChange={saveImgFile}
 					ref={imgRef}
+					value={string}
 				/>
 			</form>
 		);

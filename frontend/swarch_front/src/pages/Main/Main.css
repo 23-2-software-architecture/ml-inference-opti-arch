@@ -2,7 +2,7 @@
 
 .Main {
 	display: flex;
-	height: 100vh;
+	height: 100%;
 	background: #e7effa;
 	flex-direction: column;
 	align-items: center;
